@@ -7,12 +7,11 @@
 //
 
 #import "TweetCell.h"
+#import "APIManager.h"
 
 
 @interface TweetCell()
-
 @end
-
 @implementation TweetCell
 
 
@@ -27,10 +26,39 @@
 }
 
 - (IBAction)didTapFavorite:(id)sender {
-    // TODO: Update the local tweet model
-    // TODO: Update cell UI
-    // TODO: Send a POST request to the POST favorites/create endpoint
+    // Update the local tweet model
+    int favorite = self.tweet.favorited;
+    if(favorite==1) {
+        self.tweet.favorited = NO;
+        self.tweet.favoriteCount -= 1;
+    } else {
+        self.tweet.favorited = YES;
+        self.tweet.favoriteCount += 1;
+    }
+    // Update cell UI
+    [self refreshView];
+    
+    // Send a POST request to the POST favorites/create endpoint
+    [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
+        if(error){
+            NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
+        }
+        else{
+            if(self.tweet.favorited) {
+                NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
+            } else {
+                NSLog(@"Successfully unfavorited the following Tweet: %@", tweet.text);
+            }
+        }
+    }];
+    
 }
 
+- (void) refreshView {
+    
+    self.favoriteLabel.text = [NSString stringWithFormat: @"%i", self.tweet.favoriteCount];
+    self.retweetLabel.text = [NSString stringWithFormat:@"%i", self.tweet.retweetCount];
+    
+}
 
 @end
