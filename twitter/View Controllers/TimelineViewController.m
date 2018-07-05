@@ -57,6 +57,7 @@
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
     }];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -84,7 +85,23 @@
         cell.retweetLabel.text = [NSString stringWithFormat: @"%i", currTweet.retweetCount];
         cell.replyLabel.text = [NSString stringWithFormat:@"%i", currTweet.replyCount];
         [cell.userImage setImageWithURL:currTweet.user.profileImageURL];
+        
+        // For retweet button image
+        if(currTweet.retweeted) {
+            [cell.retweetButton setSelected:YES];
+        } else {
+            [cell.retweetButton setSelected:NO];
+        }
+        
+        // For favorite button image
+        if(currTweet.favorited) {
+            [cell.favoriteButton setSelected:YES];
+        } else {
+            [cell.favoriteButton setSelected:NO];
+        }
     }
+    
+    [cell refreshView];
     return cell;
 }
 

@@ -107,13 +107,16 @@
                                                     </accessibility>
                                                     <state key="normal" title="ReplyButton" image="reply-icon"/>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aCh-8d-che">
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aCh-8d-che">
                                                     <rect key="frame" x="189" y="142" width="37" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <accessibility key="accessibilityConfiguration" identifier="RetweetButt">
                                                         <accessibilityTraits key="traits" button="YES" image="YES"/>
                                                     </accessibility>
                                                     <state key="normal" title="RetweetButton" image="retweet-icon"/>
+                                                    <connections>
+                                                        <action selector="didTapRetweet:" destination="Ztn-7v-W1C" eventType="touchUpInside" id="XwL-DR-y0F"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jT3-b2-YFm">
                                                     <rect key="frame" x="273" y="13" width="87" height="21"/>
@@ -165,8 +168,10 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="date" destination="jT3-b2-YFm" id="emc-xn-AQT"/>
+                                            <outlet property="favoriteButton" destination="hpH-2H-TAW" id="vXO-q2-129"/>
                                             <outlet property="favoriteLabel" destination="q32-St-c2f" id="iu5-DE-hS2"/>
                                             <outlet property="replyLabel" destination="fKO-80-bzt" id="4bf-zX-Xue"/>
+                                            <outlet property="retweetButton" destination="aCh-8d-che" id="LIg-bq-ul1"/>
                                             <outlet property="retweetLabel" destination="hke-mQ-qtw" id="4eJ-OQ-aTO"/>
                                             <outlet property="screenName" destination="mL8-PW-FAJ" id="aaP-ob-iVM"/>
                                             <outlet property="tweetText" destination="rna-rA-jTb" id="c3q-xt-A7v"/>

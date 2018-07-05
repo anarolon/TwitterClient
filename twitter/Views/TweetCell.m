@@ -8,7 +8,7 @@
 
 #import "TweetCell.h"
 #import "APIManager.h"
-
+#import "Tweet.h"
 
 @interface TweetCell()
 @end
@@ -24,14 +24,48 @@
     // [super setSelected:selected animated:animated];
     // Configure the view for the selected state
 }
+- (IBAction)didTapRetweet:(id)sender {
+    
+    UIButton *butt = sender;
+    
+    if(!self.tweet.retweeted) {
+        [butt setSelected:YES];
+        self.tweet.retweeted = YES;
+        self.tweet.retweetCount += 1;
+        NSLog(@"WASN'T SELECTED");
+    } else {
+        [butt setSelected:NO];
+        self.tweet.retweeted = NO;
+        self.tweet.retweetCount -= 1;
+        NSLog(@"WAS SELECTED");
+    }
+    
+    [self refreshView];
+    
+    [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
+        if(error) {
+            NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
+        } else {
+            if(self.tweet.retweeted) {
+            NSLog(@"Successfully retweeted the following Tweet: %@", tweet.text);
+            } else {
+            NSLog(@"Successfully unretweeted the following Tweet: %@", tweet.text);
+            }
+        }
+    }];
+}
 
 - (IBAction)didTapFavorite:(id)sender {
     // Update the local tweet model
-    int favorite = self.tweet.favorited;
-    if(favorite==1) {
+    BOOL favorite = self.tweet.favorited;
+    UIButton *butt = sender;
+    
+    if(favorite) {
+        [butt setSelected:NO];
         self.tweet.favorited = NO;
         self.tweet.favoriteCount -= 1;
     } else {
+        [butt setSelected:YES];
         self.tweet.favorited = YES;
         self.tweet.favoriteCount += 1;
     }
@@ -52,12 +86,20 @@
         }
     }];
     
+    
 }
 
 - (void) refreshView {
     
     self.favoriteLabel.text = [NSString stringWithFormat: @"%i", self.tweet.favoriteCount];
     self.retweetLabel.text = [NSString stringWithFormat:@"%i", self.tweet.retweetCount];
+    
+    // Change Retweet button image
+    [self.retweetButton setImage:[UIImage imageNamed:@"retweet-icon-green.png"] forState:UIControlStateSelected];
+    [self.retweetButton setImage:[UIImage imageNamed:@"retweet-icon.png"] forState:UIControlStateNormal];
+    // Change favorite button image
+    [self.favoriteButton setImage:[UIImage imageNamed:@"favor-icon-red.png"] forState:UIControlStateSelected];
+    [self.favoriteButton setImage:[UIImage imageNamed:@"favor-icon.png"] forState:UIControlStateNormal];
     
 }
 

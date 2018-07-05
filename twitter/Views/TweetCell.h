@@ -20,5 +20,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *replyLabel;
 @property (weak, nonatomic) IBOutlet UILabel *retweetLabel;
 @property (weak, nonatomic) IBOutlet UILabel *favoriteLabel;
+@property (weak, nonatomic) IBOutlet UIButton *retweetButton;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
+
+- (void) refreshView;
 
 @end

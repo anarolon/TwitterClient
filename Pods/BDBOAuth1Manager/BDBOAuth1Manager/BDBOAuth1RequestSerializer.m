@@ -434,7 +434,7 @@ static NSDictionary *OAuthKeychainDictionaryForService(NSString *service) {
         }
     }
 
-    [request setValue:[self OAuthAuthorizationHeaderForMethod:method
+    [request setValue:[self OAuthAuthorizationHeaderForMethod:method // Here!
                                                     URLString:URLString
                                                    parameters:authorizationParameters
                                                         error:error] forHTTPHeaderField:@"Authorization"];
