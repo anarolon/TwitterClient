@@ -83,8 +83,8 @@
         cell.screenName.text = currTweet.user.screenName;
         cell.date.text = currTweet.createdAtString;
         cell.tweetText.text = currTweet.text;
-        cell.favoriteLabel.text = [NSString stringWithFormat:@"%i", currTweet.favoriteCount];
-        cell.retweetLabel.text = [NSString stringWithFormat: @"%i", currTweet.retweetCount];
+        cell.favoriteButton.titleLabel.text = [NSString stringWithFormat:@"%i", currTweet.favoriteCount];
+        cell.retweetButton.titleLabel.text = [NSString stringWithFormat: @"%i", currTweet.retweetCount];
         cell.replyLabel.text = [NSString stringWithFormat:@"%i", currTweet.replyCount];
         [cell.userImage setImageWithURL:currTweet.user.profileImageURL];
         

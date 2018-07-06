@@ -60,6 +60,8 @@
     BOOL favorite = self.tweet.favorited;
     UIButton *butt = sender;
     
+    NSLog(@"%@", butt.titleLabel.text);
+    
     if(favorite) {
         [butt setSelected:NO];
         self.tweet.favorited = NO;
@@ -72,6 +74,7 @@
     // Update cell UI
     [self refreshView];
     
+    NSLog(@"%@", butt.titleLabel.text);
     // Send a POST request to the POST favorites/create endpoint
     [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
         if(error){
@@ -90,9 +93,12 @@
 }
 
 - (void) refreshView {
+
+    [self.favoriteButton setTitle:[NSString stringWithFormat: @"%i", self.tweet.favoriteCount] forState:UIControlStateNormal];
+    [self.favoriteButton setTitle:[NSString stringWithFormat: @"%i", self.tweet.favoriteCount] forState:UIControlStateSelected];
     
-    self.favoriteLabel.text = [NSString stringWithFormat: @"%i", self.tweet.favoriteCount];
-    self.retweetLabel.text = [NSString stringWithFormat:@"%i", self.tweet.retweetCount];
+    [self.retweetButton setTitle:[NSString stringWithFormat: @"%i", self.tweet.retweetCount] forState:UIControlStateNormal];
+    [self.retweetButton setTitle:[NSString stringWithFormat: @"%i", self.tweet.retweetCount] forState:UIControlStateSelected];
     
     // Change Retweet button image
     [self.retweetButton setImage:[UIImage imageNamed:@"retweet-icon-green.png"] forState:UIControlStateSelected];
