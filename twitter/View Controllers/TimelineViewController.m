@@ -29,7 +29,7 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    [self.tableView setRowHeight: 200];
+    [self.tableView setRowHeight: UITableViewAutomaticDimension];
     
     [self getTimeLine];
     
